@@ -8,10 +8,10 @@ import '../login_page.dart';
 import '../user_model.dart';
 
 class AuthService {
+  var loggedIn = false;
   //Determine if the user is authenticated.
   handleAuth() {
-    return StreamBuilder(
-        builder: (BuildContext context, AsyncSnapshot snapshot) {
+    return StreamBuilder(builder: (BuildContext context, snapshot) {
       return LoginPage();
     });
   }
@@ -30,14 +30,14 @@ class AuthService {
   }
 
   //Sign out
-  signOut() {
+  void signOut() {
     if (kDebugMode) {
       print("Signed out");
     }
   }
 
   //Sign In
-  signIn(String email, String password, context) async {
+  void signIn(String email, String password, context) async {
     var req = AuthRequest(identity: email, password: password);
     AuthResponse resp = await login(req);
     if (resp.status == "success") {

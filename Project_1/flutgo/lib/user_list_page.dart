@@ -27,26 +27,24 @@ class _ListUsersState extends State<ListUsers> {
                       return const Center(
                         child: CircularProgressIndicator(),
                       );
-                    }
-
-                    if (snapshot.hasError) {
+                    } else if (snapshot.hasError) {
                       return Center(
                         child: Text("Error: ${snapshot.error}",
                             style: const TextStyle(color: Colors.redAccent)),
                       );
+                    } else {
+                      return ListView.builder(
+                        itemCount: snapshot.data.length,
+                        itemBuilder: (BuildContext context, int index) {
+                          return Card(
+                              child: ListTile(
+                            title: Text(snapshot.data[index].name),
+                            subtitle: Text(
+                                "Username: ${snapshot.data[index].username} \t Email:${snapshot.data[index].email}"),
+                          ));
+                        },
+                      );
                     }
-
-                    return ListView.builder(
-                      itemCount: snapshot.data.length,
-                      itemBuilder: (BuildContext context, int index) {
-                        return Card(
-                            child: ListTile(
-                          title: Text(snapshot.data[index].name),
-                          subtitle: Text(
-                              "Username: ${snapshot.data[index].username} \t Email:${snapshot.data[index].email}"),
-                        ));
-                      },
-                    );
                   },
                 ),
               ],
